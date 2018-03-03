@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>X Marks the Spot</title>
+    <div class="filled"></div>
+    <style>
+      td {
+        border:solid black 1px;
+        width:120px;
+        height:80px;
+      }
+      .filled {
+        background-color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <table id="table"></table>
+  </body>
+  <script type="text/javascript">
+  	let size = 6;
+    let table = document.getElementById("table");
+    for (i = 0; i < size; i++) {
+      let row = table.insertRow(i);
+      for (j = 0; j < size; j++) {
+        let cell = row.insertCell(j);
+        if(i===j){
+          cell.className="filled";
+        }
+        if((j+i)===size-1){
+            cell.className="filled";
+        }
+      }
+    }
+  </script>
+</html>
