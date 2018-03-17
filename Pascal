@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pascal's triangle</title>
+  </head>
+  <body>
+  </body>
+  <script>
