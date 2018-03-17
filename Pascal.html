@@ -7,16 +7,30 @@
     <table id="table"></table>
   </body>
   <script>
+
     function pascal(length) {
       let table = document.getElementById("table");
+      let currentRow = [];
+      let prevRow = [];
       for(i=0;i<length;i++) {
         let row = table.insertRow(i);
         for (j=0;j<length;j++) {
           let cell = row.insertCell(j);
-            if (j===0||j===i-1) {
-              cell.innerHTML = 1;
+            if (j<i){
+              if (j===0||j===i-1) {
+                cell.innerHTML = 1;
+                currentRow.push(1);
+              }
+              else {
+                let cellValue = prevRow[j] + prevRow[j-1];
+                cell.innerHTML = (cellValue);
+                currentRow.push(cellValue)
+
+              }
             }
           }
+          prevRow = currentRow;
+          currentRow = [];
         }
       }
     pascal(10);
