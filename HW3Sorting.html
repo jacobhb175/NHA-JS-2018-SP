@@ -4,16 +4,16 @@
     function sort(array) {
       let length = array["length"];
       let counter = [];
-      // if counter length = 0, stop loop.
-      // if else, keep going
-      // counter clears after each iteration
-      for (var i = 0; i < array.length; i++) {
-        for (let i=0; i<length; i++) {
-          let valueA = array[i];
-          let valueB = array[i+1]
+      // i counter length = 0, stop loop.
+      // i else, keep going
+      // counter clears ater each iteration
+      for (let i=0; i<length; i++) {
+        for (let j=0; j<length; j++) {
+          let valueA = array[j];
+          let valueB = array[j+1]
             if (valueA>valueB) {
-              array[i]=valueB
-              array[i+1]=valueA
+              array[j]=valueB
+              array[j+1]=valueA
               counter.push("a");
             }
           }
