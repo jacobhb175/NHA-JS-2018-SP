@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+  </body>
+  <script>
+    function sort(array) {
+      let length = array[length];
+      for (let i=0; i<array.length; i++) {
+        let valueA = array[i];
+        let valueB = array[i+1]
+        if (valueA>valueB) {
+          array[i]=valueB
+          array[i+1]=valueA
+        }
+      }
+    }
+  </script>
+</html>

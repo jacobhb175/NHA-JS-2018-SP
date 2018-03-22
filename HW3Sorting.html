@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+  </body>
+  <script>
+    function sort(array) {
+      let length = array["length"];
+      let counter = [];
+      // if counter length = 0, stop loop.
+      // if else, keep going
+      // counter clears after each iteration
+      for (var i = 0; i < array.length; i++) {
+        for (let i=0; i<length; i++) {
+          let valueA = array[i];
+          let valueB = array[i+1]
+            if (valueA>valueB) {
+              array[i]=valueB
+              array[i+1]=valueA
+              counter.push("a");
+            }
+          }
+        }
+      return array;
+    }
+  </script>
+</html>
