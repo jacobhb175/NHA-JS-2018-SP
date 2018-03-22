@@ -1,1 +1,46 @@
 <!DOCTYPE>
+<html>
+  <head>
+  </head>
+  <body>
+    <input id = "input"></input>
+    <button onclick="RNC()"type="button">Sort</button>
+    <p id = "output"></p>
+  </body>
+  <script>
+    function RNC() {
+      let rNumerals=document.getElementById('input');
+      let aNumerals = 0;
+      rNumerals.toUpperCase();
+      rNumerals.split("");
+      length=rNumerals.length;
+      //create a storage value (aNumerals) and add each # to it
+      for (let i=0; i<length; i++) {
+        if (i=I) {
+          aNumerals=aNumerals+1;
+        }
+        if (i=V) {
+          aNumerals=aNumerals+5;
+        }
+        if (i=X) {
+          aNumerals=aNumerals+10;
+        }
+        if (i=L) {
+          aNumerals=aNumerals+50;
+        }
+        if (i=C) {
+          aNumerals=aNumerals+100;
+        }
+        if (i=D) {
+          aNumerals=aNumerals+500;
+        }
+        if (i=M) {
+          aNumerals=aNumerals+1000;
+        }
+      }
+
+
+      document.getElementById('output').value=aNumerals;
+    }
+  </script>
+</html>
