@@ -9,14 +9,13 @@
   </body>
   <script>
     function RNC() {
-      let rNumerals=document.getElementById('input');
-      let aNumerals = 0;
-      rNumerals.toUpperCase();
-      rNumerals.split("");
+      let input=document.getElementById('input');
+      let aNumerals=0;
+      let rNumerals=input.split("");
       length=rNumerals.length;
       //create a storage value (aNumerals) and add each # to it
       for (let i=0; i<length; i++) {
-        if (i=I) {
+        if (rNumerals[i]=I) {
           aNumerals=aNumerals+1;
         }
         if (i=V) {
