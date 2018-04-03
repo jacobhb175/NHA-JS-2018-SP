@@ -7,23 +7,23 @@
     <button onclick="newGame()"type="button">New Game</button>
     <button onclick="hit()"type="button">Hit</button>
     <button onclick="stay()"type="button">Stay</button>
+    <div id="player"></div>
+    <div id="house"></div>
     <script>
-    function draw(myJson) {
-      for (let i = 0; i < 1; i++) {
-        let image = document.createElement("IMG");
-        image.setAttribute("src",myJson.cards[i].image);
-        document.body.appendChild(image);
-      }
-    }
-      function newGame() {
+    let player = [];
+    let house = [];
+      function draw() {
         fetch('https://deckofcardsapi.com/api/deck/new/draw/?count=2')
           .then(function(response) {
             return response.json();
           })
           .then(function(myJson) {
             console.log(myJson);
-            draw(myJson);
-            draw(myJson);
+            for (let i = 0; i < 1; i++) {
+              let image = document.createElement("IMG");
+              image.setAttribute("src",myJson.cards[i].image);
+              document.body.appendChild(image);
+            }
           })
       }
       function hit() {
