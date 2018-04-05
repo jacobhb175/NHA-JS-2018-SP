@@ -14,7 +14,9 @@
     <script>
     let user = 'player';
     let player = 0;
+    let playerStatus;
     let house = 0;
+    let houseStatus;
     function newGame() {
       fetch('https://deckofcardsapi.com/api/deck/new/')
         .then(function(response) {
@@ -48,12 +50,37 @@
                 player = player + 11;
               }
             }
-            else if (myJson.cards[0].value=='KING'||'QUEEN'||'JACK') {
-              player = player + 10;
-            }
-            else {
-              console.log(myJson.cards[0].value);
-              player = player + myJson.cards[0].value;
+            switch (myJson.cards[0].value) {
+              case "2":
+                player = player + 2;
+                break;
+              case "3":
+                player = player + 3;
+                break;
+              case "4":
+                player = player + 4;
+                break;
+              case "5":
+                player = player + 5;
+                break;
+              case "6":
+                player = player + 6;
+                break;
+              case "7":
+                player = player + 7;
+                break;
+              case "8":
+                player = player + 8;
+                break;
+              case "9":
+                player = player + 9;
+                break;
+              case "10":
+              case "JACK":
+              case "QUEEN":
+              case "KING":
+                player = player + 10;
+                break;
             }
           }
           else {
@@ -61,17 +88,43 @@
             if (myJson.cards[0].value=='ACE') {
               let aceValue = prompt("1 or 11?")
               if (aceValue='1') {
-                player = player + 1;
+                house = house + 1;
               }
               else {
-                player = player + 11;
+                house = house + 11;
               }
             }
-            else if (myJson.cards[0].value=='KING'||'QUEEN'||'JACK') {
-              house = house + 10;
-            }
-            else {
-              house = house + myJson.cards[0].value;
+            switch (myJson.cards[0].value) {
+              case "2":
+                house = house + 2;
+                break;
+              case "3":
+                house = house + 3;
+                break;
+              case "4":
+                house = house + 4;
+                break;
+              case "5":
+                house = house + 5;
+                break;
+              case "6":
+                house = house + 6;
+                break;
+              case "7":
+                house = house + 7;
+                break;
+              case "8":
+                house = house + 8;
+                break;
+              case "9":
+                house = house + 9;
+                break;
+              case "10":
+              case "JACK":
+              case "QUEEN":
+              case "KING":
+                house = house + 10;
+                break;
             }
           }
         })
@@ -82,9 +135,29 @@
       function stay() {
         if (user=='player') {
           user = 'house';
+          draw();
+          if (player > 21) {
+            alert("Bust!");
+            playerStatus = 'Bust';
+          }
         }
         else {
-          user='player';
+          /*if (house > 21) {
+            alert("Bust!")
+            houseStatus = 'Bust';
+          }*/
+          if (playerStatus == 'Bust') {
+            alert("The house wins!");
+          }
+          if (houseStatus == 'Bust') {
+            alert("The player wins!");
+          }
+          else if (player>house==true) {
+            alert("The player wins!");
+          }
+          else {
+            alert("The house wins!");
+          }
         }
       }
     </script>
