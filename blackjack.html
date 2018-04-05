@@ -12,8 +12,9 @@
     <p>House's Cards</p>
     <div id="house"></div>
     <script>
-    let player = [];
-    let house = [];
+    let user = 'player';
+    let player = 0;
+    let house = 0;
     function newGame() {
       fetch('https://deckofcardsapi.com/api/deck/new/')
         .then(function(response) {
@@ -21,33 +22,70 @@
         })
         .then(function(myJson) {
           console.log(myJson);
-          let deckID = myJson.deck_id;
-          draw('player');
+          //let deckID = myJson.deck_id;
+          draw(user);
+          draw(user);
+          draw('house');
         })
       }
-    function draw(user) {
+    function draw(currentUser) {
       fetch('https://deckofcardsapi.com/api/deck/new/draw/?count=1')
         .then(function(response) {
           return response.json();
         })
         .then(function(myJson) {
           console.log(myJson);
-          for (let i = 0; i < 1; i++) {
-            let image = document.createElement("IMG");
-            image.setAttribute("src",myJson.cards[i].image);
-            if (user=='player') {
-              document.getElementById('player').appendChild(image);
+          let image = document.createElement("IMG");
+          image.setAttribute("src",myJson.cards[0].image);
+          if (currentUser=='player') {
+            document.getElementById('player').appendChild(image);
+            if (myJson.cards[0].value=='ACE') {
+              let aceValue = prompt("1 or 11?")
+              if (aceValue='1') {
+                player = player + 1;
+              }
+              else {
+                player = player + 11;
+              }
+            }
+            else if (myJson.cards[0].value=='KING'||'QUEEN'||'JACK') {
+              player = player + 10;
             }
             else {
-              //document.getElementById('house').appendChild(image);
+              console.log(myJson.cards[0].value);
+              player = player + myJson.cards[0].value;
+            }
+          }
+          else {
+            document.getElementById('house').appendChild(image);
+            if (myJson.cards[0].value=='ACE') {
+              let aceValue = prompt("1 or 11?")
+              if (aceValue='1') {
+                player = player + 1;
+              }
+              else {
+                player = player + 11;
+              }
+            }
+            else if (myJson.cards[0].value=='KING'||'QUEEN'||'JACK') {
+              house = house + 10;
+            }
+            else {
+              house = house + myJson.cards[0].value;
             }
           }
         })
     }
       function hit() {
-        draw(house);
+        draw(user)
       }
       function stay() {
+        if (user=='player') {
+          user = 'house';
+        }
+        else {
+          user='player';
+        }
       }
     </script>
   </body>
