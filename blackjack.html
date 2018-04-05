@@ -7,34 +7,45 @@
     <button onclick="newGame()"type="button">New Game</button>
     <button onclick="hit()"type="button">Hit</button>
     <button onclick="stay()"type="button">Stay</button>
+    <p>Player's Cards</p>
     <div id="player"></div>
+    <p>House's Cards</p>
     <div id="house"></div>
     <script>
     let player = [];
     let house = [];
-      function draw() {
-        fetch('https://deckofcardsapi.com/api/deck/new/draw/?count=2')
-          .then(function(response) {
-            return response.json();
-          })
-          .then(function(myJson) {
-            console.log(myJson);
-            for (let i = 0; i < 1; i++) {
-              let image = document.createElement("IMG");
-              image.setAttribute("src",myJson.cards[i].image);
-              document.body.appendChild(image);
-            }
-          })
+    function newGame() {
+      fetch('https://deckofcardsapi.com/api/deck/new/')
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(myJson) {
+          console.log(myJson);
+          let deckID = myJson.deck_id;
+          draw('player');
+        })
       }
+    function draw(user) {
+      fetch('https://deckofcardsapi.com/api/deck/new/draw/?count=1')
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(myJson) {
+          console.log(myJson);
+          for (let i = 0; i < 1; i++) {
+            let image = document.createElement("IMG");
+            image.setAttribute("src",myJson.cards[i].image);
+            if (user=='player') {
+              document.getElementById('player').appendChild(image);
+            }
+            else {
+              //document.getElementById('house').appendChild(image);
+            }
+          }
+        })
+    }
       function hit() {
-        fetch('https://deckofcardsapi.com/api/deck/new/draw/?count=1')
-          .then(function(response) {
-            return response.json();
-          })
-          .then(function(myJson) {
-            console.log(myJson);
-            draw(myJson);
-          })
+        draw(house);
       }
       function stay() {
       }
