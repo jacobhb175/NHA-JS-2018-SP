@@ -142,21 +142,21 @@
           }
         }
         else {
-          /*if (house > 21) {
+          if (house > 21) {
             alert("Bust!")
             houseStatus = 'Bust';
-          }*/
+          }
           if (playerStatus == 'Bust') {
             alert("The house wins!");
           }
-          if (houseStatus == 'Bust') {
+          if (houseStatus == 'Bust' && playerStatus != 'Bust') {
             alert("The player wins!");
           }
-          else if (player>house==true) {
+          if (player>house && playerStatus != 'Bust') {
             alert("The player wins!");
           }
           else {
-            alert("The house wins!");
+            alert("A tie!");
           }
         }
       }
