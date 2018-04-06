@@ -43,10 +43,10 @@
             document.getElementById('player').appendChild(image);
             if (myJson.cards[0].value=='ACE') {
               let aceValue = prompt("1 or 11?")
-              if (aceValue='1') {
+              if (aceValue=='1') {
                 player = player + 1;
               }
-              else {
+              else if (aceValue=='11'){
                 player = player + 11;
               }
             }
@@ -152,10 +152,13 @@
           if (houseStatus == 'Bust' && playerStatus != 'Bust') {
             alert("The player wins!");
           }
+          if (house>player && houseStatus != 'Bust') {
+            alert("The house wins!");
+          }
           if (player>house && playerStatus != 'Bust') {
             alert("The player wins!");
           }
-          else {
+          if(player==house&&playerStatus!='Bust'&&houseStatus!='Bust') {
             alert("A tie!");
           }
         }
