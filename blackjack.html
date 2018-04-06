@@ -135,10 +135,13 @@
       function stay() {
         if (user=='player') {
           user = 'house';
-          draw();
+          draw(user);
           if (player > 21) {
             alert("The player busts!");
             playerStatus = 'Bust';
+          }
+          while (house<16) {
+            setInterval(draw(user),10000)
           }
         }
         else {
