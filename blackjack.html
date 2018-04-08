@@ -30,7 +30,7 @@
           draw('house');
         })
       }
-    function draw(currentUser) {
+    function draw(cUser) {
       fetch('https://deckofcardsapi.com/api/deck/new/draw/?count=1')
         .then(function(response) {
           return response.json();
@@ -39,7 +39,7 @@
           console.log(myJson);
           let image = document.createElement("IMG");
           image.setAttribute("src",myJson.cards[0].image);
-          if (currentUser=='player') {
+          if (cUser=='player') {
             document.getElementById('player').appendChild(image);
             if (myJson.cards[0].value=='ACE') {
               let aceValue = prompt("1 or 11?")
@@ -140,8 +140,14 @@
             alert("The player busts!");
             playerStatus = 'Bust';
           }
-          while (house<16) {
-            setInterval(draw(user),10000)
+          for (let i = 0; i < 20; i++); {
+            if (house < 17) {
+              draw(user);
+            }
+            if (house >= 17) {
+              i = 20;
+              stay();
+            }
           }
         }
         else {
