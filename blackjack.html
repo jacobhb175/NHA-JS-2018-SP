@@ -86,11 +86,11 @@
           else {
             document.getElementById('house').appendChild(image);
             if (myJson.cards[0].value=='ACE') {
-              let aceValue = prompt("1 or 11?")
-              if (aceValue='1') {
+              let x = Math.floor((Math.random() * 2) + 1) - 1;
+              if (x==0) {
                 house = house + 1;
               }
-              else {
+              else if (x==1) {
                 house = house + 11;
               }
             }
@@ -144,7 +144,7 @@
             if (house < 17) {
               draw(user);
             }
-            if (house >= 17) {
+            else if (house>=17) {
               i = 20;
               stay();
             }
