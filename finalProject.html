@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Poker</title>
+  </head>
+  <body>
+    <button onclick="newGame()"type="button">New Game</button>
+    <button onclick="check()"type="button">Check</button>
+    <button onclick="bet()"type="button">Bet</button>
+    <button onclick="fold()"type="button">Fold</button>
+    <p>Shared Cards</p>
+    <div id="shared"></div>
+    <p>Your Cards<p>
+    <div id="player"></div>
+    <script>
+    let user = 'player1';
+    let player1 = [];
+    let player1Status;
+    let player2 = [];
+    let player2Status;
+    function newGame() {
+      fetch('https://deckofcardsapi.com/api/deck/new/')
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(myJson) {
+          console.log(myJson);
+          drawToCenter();
+          drawToCenter();
+          drawToCenter();
+        })
+      }
+    function drawToCenter() {
+      fetch('https://deckofcardsapi.com/api/deck/new/draw/?count=1')
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(myJson) {
+          console.log(myJson);
+          let image = document.createElement("IMG");
+          image.setAttribute("src",myJson.cards[0].image);
+          document.getElementById('shared').appendChild(image);
+        })
+      }
+      function check() {
+        draw(user)``
+      }
+      function stay() {
+        if (user=='player') {
+          user = 'house';
+          draw(user);
+          if (player > 21) {
+            alert("The player busts!");
+            playerStatus = 'Bust';
+          }
+          for (let i = 0; i < 20; i++); {
+            if (house < 17) {
+              draw(user);
+            }
+            else if (house>=17) {
+              i = 20;
+              stay();
+            }
+          }
+        }
+        else {
+          if (house > 21) {
+            alert("The house busts!")
+            houseStatus = 'Bust';
+          }
+          if (playerStatus == 'Bust') {
+            alert("The house wins!");
+          }
+          if (houseStatus == 'Bust' && playerStatus != 'Bust') {
+            alert("The player wins!");
+          }
+          if (house>player && houseStatus != 'Bust') {
+            alert("The house wins!");
+          }
+          if (player>house && playerStatus != 'Bust') {
+            alert("The player wins!");
+          }
+          if(player==house&&playerStatus!='Bust'&&houseStatus!='Bust') {
+            alert("A tie!");
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
