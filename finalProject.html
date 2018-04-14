@@ -6,18 +6,21 @@
   <body>
     <button onclick="newGame()"type="button">New Game</button>
     <button onclick="check()"type="button">Check</button>
-    <button onclick="bet()"type="button">Bet</button>
+    <button onclick="raise()"type="button">Raise</button>
     <button onclick="fold()"type="button">Fold</button>
     <p>Shared Cards</p>
     <div id="shared"></div>
-    <p>Your Cards<p>
+    <p>Your Hole Cards<p>
     <div id="player"></div>
+    <p></p>
     <script>
     let user = 'player1';
     let player1 = [];
     let player1Status;
+    let player1Bid = 0;
     let player2 = [];
     let player2Status;
+    let player2Bid = 0;
     function newGame() {
       fetch('https://deckofcardsapi.com/api/deck/new/')
         .then(function(response) {
@@ -28,6 +31,10 @@
           drawToCenter();
           drawToCenter();
           drawToCenter();
+          draw(user);
+          draw(user);
+          draw('player2');
+          draw('player2');
         })
       }
     function drawToCenter() {
@@ -42,47 +49,51 @@
           document.getElementById('shared').appendChild(image);
         })
       }
-      function check() {
-        draw(user)``
+      function draw(user) {
+        fetch('https://deckofcardsapi.com/api/deck/new/draw/?count=1')
+          .then(function(response) {
+            return response.json();
+          })
+          .then(function(myJson) {
+            console.log(myJson);
+            if (user=="player1") {
+              player1.push(myJson);
+            }
+            if (user=="player2") {
+              player2.push(myJson);
+            }
+          })
       }
-      function stay() {
-        if (user=='player') {
-          user = 'house';
-          draw(user);
-          if (player > 21) {
-            alert("The player busts!");
-            playerStatus = 'Bust';
-          }
-          for (let i = 0; i < 20; i++); {
-            if (house < 17) {
-              draw(user);
-            }
-            else if (house>=17) {
-              i = 20;
-              stay();
-            }
-          }
+      function check() {
+        let cardImage1 = document.createElement("IMG");
+        console.log("created img for user"+user)
+        if (user=='player1') {
+          cardImage1.setAttribute("src",player1[0].cards[0].image);
+          console.log("set player src = "+player1[0].cards[0].image)
         }
-        else {
-          if (house > 21) {
-            alert("The house busts!")
-            houseStatus = 'Bust';
-          }
-          if (playerStatus == 'Bust') {
-            alert("The house wins!");
-          }
-          if (houseStatus == 'Bust' && playerStatus != 'Bust') {
-            alert("The player wins!");
-          }
-          if (house>player && houseStatus != 'Bust') {
-            alert("The house wins!");
-          }
-          if (player>house && playerStatus != 'Bust') {
-            alert("The player wins!");
-          }
-          if(player==house&&playerStatus!='Bust'&&houseStatus!='Bust') {
-            alert("A tie!");
-          }
+        if (user=='player2') {
+          cardImage1.setAttribute("src",player2[0].cards[0].image);
+          console.log("set player2")
+        }
+        document.getElementById('player').appendChild(cardImage1);
+        console.log("adding img")
+        let cardImage2 = document.createElement("IMG");
+        if (user=='player1') {
+          cardImage2.setAttribute("src",player1[1].cards[0].image);
+        }
+        if (user=='player2') {
+          cardImage2.setAttribute("src",player2[1].cards[0].image);
+        }
+        document.getElementById('player').appendChild(cardImage2);
+      }
+      function raise() {
+        if (user=='player1') {
+          player1Bid=player1Bid+1;
+          user='player2';
+        }
+        if (user=='player2') {
+          player2Bid=player2Bid+1;
+          user='player1';
         }
       }
     </script>
