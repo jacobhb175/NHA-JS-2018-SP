@@ -2,25 +2,30 @@
 <html>
   <head>
     <title>Poker</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   </head>
   <body>
     <button onclick="newGame()"type="button">New Game</button>
     <button onclick="check()"type="button">Check</button>
     <button onclick="raise()"type="button">Raise</button>
     <button onclick="fold()"type="button">Fold</button>
+    <p>Your Hole Cards<p>
     <p>Shared Cards</p>
     <div id="shared"></div>
-    <p>Your Hole Cards<p>
-    <div id="player"></div>
-    <p></p>
     <script>
+    let center = [];
     let user = 'player1';
     let player1 = [];
     let player1Status;
     let player1Bid = 0;
+    let player1Value = 0;
     let player2 = [];
     let player2Status;
     let player2Bid = 0;
+    let player2Value = 0;
+    let turnNumber = 0;
+    let cardArray1 = [];
+    let cardArray2 = [];
     function newGame() {
       fetch('https://deckofcardsapi.com/api/deck/new/')
         .then(function(response) {
@@ -28,9 +33,6 @@
         })
         .then(function(myJson) {
           console.log(myJson);
-          drawToCenter();
-          drawToCenter();
-          drawToCenter();
           draw(user);
           draw(user);
           draw('player2');
@@ -47,6 +49,7 @@
           let image = document.createElement("IMG");
           image.setAttribute("src",myJson.cards[0].image);
           document.getElementById('shared').appendChild(image);
+          center.push(myJson);
         })
       }
       function draw(user) {
@@ -65,18 +68,15 @@
           })
       }
       function check() {
+        $("p").append("<div id='player'class='hole'></div>")
         let cardImage1 = document.createElement("IMG");
-        console.log("created img for user"+user)
         if (user=='player1') {
           cardImage1.setAttribute("src",player1[0].cards[0].image);
-          console.log("set player src = "+player1[0].cards[0].image)
         }
         if (user=='player2') {
           cardImage1.setAttribute("src",player2[0].cards[0].image);
-          console.log("set player2")
         }
         document.getElementById('player').appendChild(cardImage1);
-        console.log("adding img")
         let cardImage2 = document.createElement("IMG");
         if (user=='player1') {
           cardImage2.setAttribute("src",player1[1].cards[0].image);
@@ -87,13 +87,73 @@
         document.getElementById('player').appendChild(cardImage2);
       }
       function raise() {
-        if (user=='player1') {
-          player1Bid=player1Bid+1;
-          user='player2';
+        turnNumber=turnNumber+1;
+        $( "div" ).remove(".hole");
+        if (turnNumber==2) {
+          drawToCenter();
+          drawToCenter();
+          drawToCenter();
         }
-        if (user=='player2') {
+        if (turnNumber==4) {
+          drawToCenter();
+        }
+        if (turnNumber==6) {
+          drawToCenter();
+        }
+        if (turnNumber==8) {
+          for (let i = 0; i < 7; i++) {
+            if (i<=1) {
+              cardArray1.push(player1[i].cards[0].value);
+              cardArray1.push(player1[i].cards[0].suit);
+            }
+            else {
+              cardArray1.push(center[i-2].cards[0].value);
+              cardArray1.push(center[i-2].cards[0].suit);
+            }
+          }
+          let player1cards = prompt("Pick 5 of your cards, Player 1");
+          console.log(player1cards);
+          for (let j = 0; j < 7; j++) {
+            if (j<=1) {
+              cardArray2.push(player1[j].cards[0].value);
+              cardArray2.push(player1[j].cards[0].suit);
+            }
+            else {
+              cardArray2.push(center[j-2].cards[0].value);
+              cardArray2.push(center[j-2].cards[0].suit);
+            }
+          }
+          let player2cards = prompt("Pick 5 of your cards, Player 2");
+          console.log(player2cards);
+          /*if (player1value>player2value) {
+            alert("Player 1 wins!");
+          }
+          else if (player2value>player1value) {
+            alert("Player 2 wins!");
+          }
+          else {
+            alert("A tie!");
+          }*/
+        }
+        if (user=='player1') {
+          user = 'player2';
+          player1Bid=player1Bid+1;
+          console.log("user changes");
+        }
+        else if (user=='player2') {
           player2Bid=player2Bid+1;
           user='player1';
+          console.log("user changes");
+        }
+      }
+      function fold() {
+        if (user=='player1') {
+          player1Status = 'folded';
+          alert("Player 2 wins!");
+        }
+        else if (user=='player2') {
+          player2Status = 'folded';
+          alert("Player 1 wins!");
         }
       }
     </script>
