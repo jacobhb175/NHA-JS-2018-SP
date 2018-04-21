@@ -7,7 +7,8 @@
   <body>
     <button onclick="newGame()"type="button">New Game</button>
     <button onclick="check()"type="button">Check Cards</button>
-    <button onclick="call()"type="button">call</button>
+    <button onclick="call()"type="button">Call</button>
+    <button onclick="raise()"type="button">Raise</button>
     <button onclick="fold()"type="button">Fold</button>
     <p>Current Bet: <span id="current_bet">0</span><p>
     <p>Your Hole Cards<p>
@@ -28,6 +29,7 @@
     let cardArray2 = [];
     let player1Final=[];
     let player2Final=[];
+    let deckId
     function newGame() {
       fetch('https://deckofcardsapi.com/api/deck/new/')
         .then(function(response) {
@@ -35,6 +37,7 @@
         })
         .then(function(myJson) {
           console.log(myJson);
+          deckId=myJson.deck_id;
           draw(user);
           draw(user);
           draw('player2');
@@ -42,7 +45,7 @@
         })
       }
     function drawToCenter() {
-      fetch('https://deckofcardsapi.com/api/deck/new/draw/?count=1')
+      fetch('https://deckofcardsapi.com/api/deck/'+deckId+'/draw/?count=1')
         .then(function(response) {
           return response.json();
         })
@@ -55,7 +58,7 @@
         })
       }
       function draw(user) {
-        fetch('https://deckofcardsapi.com/api/deck/new/draw/?count=1')
+        fetch('https://deckofcardsapi.com/api/deck/'+deckId+'/draw/?count=1')
           .then(function(response) {
             return response.json();
           })
@@ -103,15 +106,12 @@
           drawToCenter();
           drawToCenter();
           drawToCenter();
-          currentBid=currentBid+1;
         }
         if (turnNumber==4) {
           drawToCenter();
-          currentBid=currentBid+1;
         }
         if (turnNumber==6) {
           drawToCenter();
-          currentBid=currentBid+1;
         }
         if (turnNumber==8) {
           currentBid=currentBid+1;
@@ -209,14 +209,18 @@
         }
         $("#current_bet").text(currentBid);
       }
+      function raise() {
+        currentBid=currentBid+1;
+        call();
+      }
       function fold() {
         if (user=='player1') {
           player1Status = 'folded';
-          alert("Player 2 wins!");
+          alert("Player 2 wins "+currentBid+" chips!");
         }
         else if (user=='player2') {
           player2Status = 'folded';
-          alert("Player 1 wins!");
+          alert("Player 1 wins "+currentBid+" chips!");
         }
       }
     </script>
