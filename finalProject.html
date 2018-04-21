@@ -7,7 +7,7 @@
   <body>
     <button onclick="newGame()"type="button">New Game</button>
     <button onclick="check()"type="button">Check Cards</button>
-    <button onclick="raise()"type="button">Raise</button>
+    <button onclick="call()"type="button">call</button>
     <button onclick="fold()"type="button">Fold</button>
     <p>Current Bet: <span id="current_bet">0</span><p>
     <p>Your Hole Cards<p>
@@ -88,7 +88,7 @@
         }
         document.getElementById('player').appendChild(cardImage2);
       }
-      function raise() {
+      function call() {
         if (user=='player1') {
           user = 'player2';
           //alert("Player 2's turn");
