@@ -6,9 +6,10 @@
   </head>
   <body>
     <button onclick="newGame()"type="button">New Game</button>
-    <button onclick="check()"type="button">Check</button>
+    <button onclick="check()"type="button">Check Cards</button>
     <button onclick="raise()"type="button">Raise</button>
     <button onclick="fold()"type="button">Fold</button>
+    <p>Current Bet: <span id="current_bet">0</span><p>
     <p>Your Hole Cards<p>
     <p>Shared Cards</p>
     <div id="shared"></div>
@@ -21,11 +22,12 @@
     let player1Value = 0;
     let player2 = [];
     let player2Status;
-    let player2Bid = 0;
-    let player2Value = 0;
+    let currentBid = 0;
     let turnNumber = 0;
     let cardArray1 = [];
     let cardArray2 = [];
+    let player1Final=[];
+    let player2Final=[];
     function newGame() {
       fetch('https://deckofcardsapi.com/api/deck/new/')
         .then(function(response) {
@@ -87,20 +89,32 @@
         document.getElementById('player').appendChild(cardImage2);
       }
       function raise() {
+        if (user=='player1') {
+          user = 'player2';
+          //alert("Player 2's turn");
+        }
+        else if (user=='player2') {
+          user='player1';
+          //alert("Player 1's turn");
+        }
         turnNumber=turnNumber+1;
         $( "div" ).remove(".hole");
         if (turnNumber==2) {
           drawToCenter();
           drawToCenter();
           drawToCenter();
+          currentBid=currentBid+1;
         }
         if (turnNumber==4) {
           drawToCenter();
+          currentBid=currentBid+1;
         }
         if (turnNumber==6) {
           drawToCenter();
+          currentBid=currentBid+1;
         }
         if (turnNumber==8) {
+          currentBid=currentBid+1;
           for (let i = 0; i < 7; i++) {
             if (i<=1) {
               cardArray1.push(player1[i].cards[0].value);
@@ -111,20 +125,78 @@
               cardArray1.push(center[i-2].cards[0].suit);
             }
           }
-          let player1cards = prompt("Pick 5 of your cards, Player 1");
-          console.log(player1cards);
-          for (let j = 0; j < 7; j++) {
-            if (j<=1) {
-              cardArray2.push(player1[j].cards[0].value);
-              cardArray2.push(player1[j].cards[0].suit);
-            }
-            else {
-              cardArray2.push(center[j-2].cards[0].value);
-              cardArray2.push(center[j-2].cards[0].suit);
+          let player1picks = [];
+          player1picks.push(prompt("Pick a card, player 1."));
+          player1picks.push(prompt("Pick a card, player 1."));
+          player1picks.push(prompt("Pick a card, player 1."));
+          player1picks.push(prompt("Pick a card, player 1."));
+          player1picks.push(prompt("Pick a card, player 1."));
+          for (let i = 0; i < 5; i++) {
+            switch (player1picks[i]) {
+              case "1":
+                player1Final.push({card:cardArray1[0],suit:cardArray1[1]})
+                break;
+              case "2":
+                player1Final.push({card:cardArray1[2],suit:cardArray1[3]})
+                break;
+              case "3":
+                player1Final.push({card:cardArray1[4],suit:cardArray1[5]})
+                break;
+              case "4":
+                player1Final.push({card:cardArray1[6],suit:cardArray1[7]})
+                break;
+              case "5":
+                player1Final.push({card:cardArray1[8],suit:cardArray1[9]})
+                break;
+              case "6":
+                player1Final.push({card:cardArray1[10],suit:cardArray1[11]})
+                break;
+              case "7":
+                player1Final.push({card:cardArray1[12],suit:cardArray1[13]})
+                break;
             }
           }
-          let player2cards = prompt("Pick 5 of your cards, Player 2");
-          console.log(player2cards);
+          for (let k = 0; k < 7; k++) {
+            if (k<=1) {
+              cardArray2.push(player1[k].cards[0].value);
+              cardArray2.push(player1[k].cards[0].suit);
+            }
+            else {
+              cardArray2.push(center[k-2].cards[0].value);
+              cardArray2.push(center[k-2].cards[0].suit);
+            }
+          }
+          let player2picks = [];
+          player2picks.push(prompt("Pick a card, player 2."));
+          player2picks.push(prompt("Pick a card, player 2."));
+          player2picks.push(prompt("Pick a card, player 2."));
+          player2picks.push(prompt("Pick a card, player 2."));
+          player2picks.push(prompt("Pick a card, player 2."));
+          for (let l = 0; l < 5; l++) {
+            switch (player2picks[l]) {
+              case "1":
+                player1Final.push({card:cardArray1[0],suit:cardArray1[1]})
+                break;
+              case "2":
+                player1Final.push({card:cardArray1[2],suit:cardArray1[3]})
+                break;
+              case "3":
+                player1Final.push({card:cardArray1[4],suit:cardArray1[5]})
+                break;
+              case "4":
+                player1Final.push({card:cardArray1[6],suit:cardArray1[7]})
+                break;
+              case "5":
+                player1Final.push({card:cardArray1[8],suit:cardArray1[9]})
+                break;
+              case "6":
+                player1Final.push({card:cardArray1[10],suit:cardArray1[11]})
+                break;
+              case "7":
+                player2Final.push({card:cardArray2[12],suit:cardArray2[13]})
+                break;
+            }
+          }
           /*if (player1value>player2value) {
             alert("Player 1 wins!");
           }
@@ -135,16 +207,7 @@
             alert("A tie!");
           }*/
         }
-        if (user=='player1') {
-          user = 'player2';
-          player1Bid=player1Bid+1;
-          console.log("user changes");
-        }
-        else if (user=='player2') {
-          player2Bid=player2Bid+1;
-          user='player1';
-          console.log("user changes");
-        }
+        $("#current_bet").text(currentBid);
       }
       function fold() {
         if (user=='player1') {
