@@ -157,6 +157,7 @@
             }
           }
           let player12s = 0;
+          console.log("x");
           let player13s = 0;
           let player14s = 0;
           let player15s = 0;
@@ -213,26 +214,223 @@
           }
           switch (player12s) {
             case 5:
-              alert("5 of a kind!")
               player1value += 3;
               break;
             case 4:
-              alert("4 of a kind!")
               player1value += 3;
               break;
             case 3:
-              alert("3 of a kind!")
               player1value += 7;
               break;
             case 2:
-              alert("A pair!")
               player1value += 9;
               break;
           }
+          switch (player13s) {
+            case 5:
+              player1value += 3;
+              break;
+            case 4:
+              player1value += 3;
+              break;
+            case 3:
+              player1value += 7;
+              break;
+            case 2:
+              player1value += 9;
+              break;
+          }
+          switch (player14s) {
+            case 5:
+              player1value += 3;
+              break;
+            case 4:
+              player1value += 3;
+              break;
+            case 3:
+              player1value += 7;
+              break;
+            case 2:
+              player1value += 9;
+              break;
+          }
+          switch (player15s) {
+            case 5:
+              player1value += 3;
+              break;
+            case 4:
+              player1value += 3;
+              break;
+            case 3:
+              player1value += 7;
+              break;
+            case 2:
+              player1value += 9;
+              break;
+          }
+          switch (player16s) {
+            case 5:
+              player1value += 3;
+              break;
+            case 4:
+              player1value += 3;
+              break;
+            case 3:
+              player1value += 7;
+              break;
+            case 2:
+              player1value += 9;
+              break;
+          }
+          switch (player17s) {
+            case 5:
+              player1value += 3;
+              break;
+            case 4:
+              player1value += 3;
+              break;
+            case 3:
+              player1value += 7;
+              break;
+            case 2:
+              player1value += 9;
+              break;
+          }
+          switch (player18s) {
+            case 5:
+              player1value += 3;
+              break;
+            case 4:
+              player1value += 3;
+              break;
+            case 3:
+              player1value += 7;
+              break;
+            case 2:
+              player1value += 9;
+              break;
+          }
+          switch (player19s) {
+            case 5:
+              player1value += 3;
+              break;
+            case 4:
+              player1value += 3;
+              break;
+            case 3:
+              player1value += 7;
+              break;
+            case 2:
+              player1value += 9;
+              break;
+          }
+          switch (player110s) {
+            case 5:
+              player1value += 3;
+              break;
+            case 4:
+              player1value += 3;
+              break;
+            case 3:
+              player1value += 7;
+              break;
+            case 2:
+              player1value += 9;
+              break;
+          }
+          switch (player1jacks) {
+            case 5:
+              player1value += 3;
+              break;
+            case 4:
+              player1value += 3;
+              break;
+            case 3:
+              player1value += 7;
+              break;
+            case 2:
+              player1value += 9;
+              break;
+          }
+          switch (player1queens) {
+            case 5:
+              player1value += 3;
+              break;
+            case 4:
+              player1value += 3;
+              break;
+            case 3:
+              player1value += 7;
+              break;
+            case 2:
+              player1value += 9;
+              break;
+          }
+          switch (player1kings) {
+            case 5:
+              player1value += 3;
+              break;
+            case 4:
+              player1value += 3;
+              break;
+            case 3:
+              player1value += 7;
+              break;
+            case 2:
+              player1value += 9;
+              break;
+          }
+          switch (player1aces) {
+            case 5:
+              player1value += 3;
+              break;
+            case 4:
+              player1value += 3;
+              break;
+            case 3:
+              player1value += 7;
+              break;
+            case 2:
+              player1value += 9;
+              break;
+          }
+          switch (player1value) {
+            case 3:
+              alert("4 of a Kind!");
+              break
+            case 16:
+              player1value = 4;
+              alert("Full House!");
+              break;
+            case 18:
+              player1value = 8;
+              alert("2 Pair!");
+              break;
+          }
+          if(player110s==1&&player1jacks==1&&player1queens==1&&player1kings==1&&player1aces==1&&player1final[0].suit==player1final[1].suit==player1final[2].suit==player1final[3].suit==player1final[4].suit) {
+            alert("Royal Flush!")
+            player1value = 1;
+          }
+          else if(player1final[0].suit==player1final[1].suit==player1final[2].suit==player1final[3].suit==player1final[4].suit) {
+            alert("Flush!")
+            player1value = 5;
+          }
+          if(player1value == 0){
+            let highCard;
+            let current;
+            for (let m = 0; m < 5; m++) {
+              if (player1final[m].card=="JACK"||player1final[m]=="QUEEN"||player1final[m]=="KING"||player1final[m]=="ACE") {
+                player1value == 10;
+              }
+              else {
+                player1value == player1final[m];
+              }
+            }
+          }
           for (let k = 0; k < 7; k++) {
             if (k<=1) {
-              cardArray2.push(player1[k].cards[0].value);
-              cardArray2.push(player1[k].cards[0].suit);
+              cardArray2.push(player2[k].cards[0].value);
+              cardArray2.push(player2[k].cards[0].suit);
             }
             else {
               cardArray2.push(center[k-2].cards[0].value);
@@ -270,15 +468,15 @@
                 break;
             }
           }
-          /*if (player1value>player2value) {
-            alert("Player 1 wins!");
+          if (player1value>player2value) {
+            alert("Player 2 wins!");
           }
           else if (player2value>player1value) {
-            alert("Player 2 wins!");
+            alert("Player 1 wins!");
           }
           else {
             alert("A tie!");
-          }*/
+          }
         }
         }
         $("#current_bet").text(currentBid);
