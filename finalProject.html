@@ -20,18 +20,18 @@
     let player1 = [];
     let player1Status;
     let player1Bid = 0;
-    let player1Value = 0;
+    let player1value = 0;
     let player2 = [];
     let player2Status;
     let currentBid = 0;
     let turnNumber = 0;
     let cardArray1 = [];
     let cardArray2 = [];
-    let player1Final=[];
-    let player2Final=[];
-    let deckId
+    let player1final=[];
+    let player2final=[];
+    let deckId;
     function newGame() {
-      fetch('https://deckofcardsapi.com/api/deck/new/')
+      fetch('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1')
         .then(function(response) {
           return response.json();
         })
@@ -134,27 +134,100 @@
           for (let i = 0; i < 5; i++) {
             switch (player1picks[i]) {
               case "1":
-                player1Final.push({card:cardArray1[0],suit:cardArray1[1]})
+                player1final.push({card:cardArray1[0],suit:cardArray1[1]})
                 break;
               case "2":
-                player1Final.push({card:cardArray1[2],suit:cardArray1[3]})
+                player1final.push({card:cardArray1[2],suit:cardArray1[3]})
                 break;
               case "3":
-                player1Final.push({card:cardArray1[4],suit:cardArray1[5]})
+                player1final.push({card:cardArray1[4],suit:cardArray1[5]})
                 break;
               case "4":
-                player1Final.push({card:cardArray1[6],suit:cardArray1[7]})
+                player1final.push({card:cardArray1[6],suit:cardArray1[7]})
                 break;
               case "5":
-                player1Final.push({card:cardArray1[8],suit:cardArray1[9]})
+                player1final.push({card:cardArray1[8],suit:cardArray1[9]})
                 break;
               case "6":
-                player1Final.push({card:cardArray1[10],suit:cardArray1[11]})
+                player1final.push({card:cardArray1[10],suit:cardArray1[11]})
                 break;
               case "7":
-                player1Final.push({card:cardArray1[12],suit:cardArray1[13]})
+                player1final.push({card:cardArray1[12],suit:cardArray1[13]})
                 break;
             }
+          }
+          let player12s = 0;
+          let player13s = 0;
+          let player14s = 0;
+          let player15s = 0;
+          let player16s = 0;
+          let player17s = 0;
+          let player18s = 0;
+          let player19s = 0;
+          let player110s = 0;
+          let player1jacks = 0;
+          let player1queens = 0;
+          let player1kings = 0;
+          let player1aces = 0;
+          for (let l = 0; l < 5; l++) {
+            switch (player1final[l].card) {
+              case "2":
+                player12s += 1;
+                break;
+              case "3":
+                player13s += 1;
+                break;
+              case "4":
+                player14s += 1;
+                break;
+              case "5":
+                player12s += 1;
+                break;
+              case "6":
+                player16s += 1;
+                break;
+              case "7":
+                player17s += 1;
+                break;
+              case "8":
+                player18s += 1;
+                break;
+              case "9":
+                player19s += 1;
+                break;
+              case "10":
+                player110s += 1;
+                break;
+              case "JACK":
+                player1jacks += 1;
+                break;
+              case "QUEEN":
+                playerqueens += 1;
+                break;
+              case "KING":
+                player1kings += 1;
+                break;
+              case "ACE":
+                player1aces += 1;
+                break;
+          }
+          switch (player12s) {
+            case 5:
+              alert("5 of a kind!")
+              player1value += 3;
+              break;
+            case 4:
+              alert("4 of a kind!")
+              player1value += 3;
+              break;
+            case 3:
+              alert("3 of a kind!")
+              player1value += 7;
+              break;
+            case 2:
+              alert("A pair!")
+              player1value += 9;
+              break;
           }
           for (let k = 0; k < 7; k++) {
             if (k<=1) {
@@ -172,28 +245,28 @@
           player2picks.push(prompt("Pick a card, player 2."));
           player2picks.push(prompt("Pick a card, player 2."));
           player2picks.push(prompt("Pick a card, player 2."));
-          for (let l = 0; l < 5; l++) {
-            switch (player2picks[l]) {
+          for (let j = 0; j < 5; j++) {
+            switch (player2picks[j]) {
               case "1":
-                player1Final.push({card:cardArray1[0],suit:cardArray1[1]})
+                player1final.push({card:cardArray1[0],suit:cardArray1[1]})
                 break;
               case "2":
-                player1Final.push({card:cardArray1[2],suit:cardArray1[3]})
+                player1final.push({card:cardArray1[2],suit:cardArray1[3]})
                 break;
               case "3":
-                player1Final.push({card:cardArray1[4],suit:cardArray1[5]})
+                player1final.push({card:cardArray1[4],suit:cardArray1[5]})
                 break;
               case "4":
-                player1Final.push({card:cardArray1[6],suit:cardArray1[7]})
+                player1final.push({card:cardArray1[6],suit:cardArray1[7]})
                 break;
               case "5":
-                player1Final.push({card:cardArray1[8],suit:cardArray1[9]})
+                player1final.push({card:cardArray1[8],suit:cardArray1[9]})
                 break;
               case "6":
-                player1Final.push({card:cardArray1[10],suit:cardArray1[11]})
+                player1final.push({card:cardArray1[10],suit:cardArray1[11]})
                 break;
               case "7":
-                player2Final.push({card:cardArray2[12],suit:cardArray2[13]})
+                player2final.push({card:cardArray2[12],suit:cardArray2[13]})
                 break;
             }
           }
@@ -206,6 +279,7 @@
           else {
             alert("A tie!");
           }*/
+        }
         }
         $("#current_bet").text(currentBid);
       }
