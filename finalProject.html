@@ -30,6 +30,20 @@
     let player1final=[];
     let player2final=[];
     let deckId;
+    let player12s = 0;
+    let player13s = 0;
+    let player14s = 0;
+    let player15s = 0;
+    let player16s = 0;
+    let player17s = 0;
+    let player18s = 0;
+    let player19s = 0;
+    let player110s = 0;
+    let player1jacks = 0;
+    let player1queens = 0;
+    let player1kings = 0;
+    let player1aces = 0;
+    let player1picks = [];
     function newGame() {
       fetch('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1')
         .then(function(response) {
@@ -125,7 +139,6 @@
               cardArray1.push(center[i-2].cards[0].suit);
             }
           }
-          let player1picks = [];
           player1picks.push(prompt("Pick a card, player 1."));
           player1picks.push(prompt("Pick a card, player 1."));
           player1picks.push(prompt("Pick a card, player 1."));
@@ -156,21 +169,8 @@
                 break;
             }
           }
-          let player12s = 0;
-          console.log("x");
-          let player13s = 0;
-          let player14s = 0;
-          let player15s = 0;
-          let player16s = 0;
-          let player17s = 0;
-          let player18s = 0;
-          let player19s = 0;
-          let player110s = 0;
-          let player1jacks = 0;
-          let player1queens = 0;
-          let player1kings = 0;
-          let player1aces = 0;
           for (let l = 0; l < 5; l++) {
+            console.log("x");
             switch (player1final[l].card) {
               case "2":
                 player12s += 1;
@@ -419,11 +419,46 @@
             let highCard;
             let current;
             for (let m = 0; m < 5; m++) {
-              if (player1final[m].card=="JACK"||player1final[m]=="QUEEN"||player1final[m]=="KING"||player1final[m]=="ACE") {
-                player1value == 10;
-              }
-              else {
-                player1value == player1final[m];
+              switch (player1final[m]) {
+                case "ACE":
+                  player1value = 10;
+                  break;
+                case "KING":
+                  player1value = 10;
+                  break;
+                case "QUEEN":
+                  player1value = 10;
+                  break;
+                case "JACK":
+                  player1value = 10;
+                  break;
+                case "10":
+                  player1value = 10;
+                  break;
+                case "9":
+                  player1value = 9;
+                  break;
+                case "8":
+                  player1value = 8;
+                  break;
+                case "7":
+                  player1value = 7;
+                  break;
+                case "6":
+                  player1value = 6;
+                  break;
+                case "5":
+                  player1value = 5;
+                  break;
+                case "4":
+                  player1value = 4;
+                  break;
+                case "3":
+                  player1value = 3;
+                  break;
+                case "2":
+                  player1value = 2;
+                  break;
               }
             }
           }
@@ -479,6 +514,7 @@
           }
         }
         }
+      }
         $("#current_bet").text(currentBid);
       }
       function raise() {
